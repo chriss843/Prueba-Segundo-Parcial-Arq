@@ -24,6 +24,8 @@
     <modules>
 
         <module>inventario-service</module>
+        <module>central-service</module>
+        <module>facturacion-service</module>
 
     </modules>
 
