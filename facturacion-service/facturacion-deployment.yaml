@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: facturacion-service
+  namespace: agroflow
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: facturacion-service
+  template:
+    metadata:
+      labels:
+        app: facturacion-service
+    spec:
+      containers:
+      - name: facturacion-service
+        image: tu-usuario/facturacion-service:v1.0
+        ports:
+        - containerPort: 3002
+        env:
+        - name: MARIADB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: mariadb-host
+        - name: MARIADB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secrets
+              key: mariadb-password
+        - name: RABBITMQ_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: rabbitmq-host
